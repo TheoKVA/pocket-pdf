@@ -3,7 +3,10 @@
 **Free & Private Mobile Document Scanner**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Project Status](https://img.shields.io/badge/status-active-brightgreen)
+[![View on GitHub Pages](https://img.shields.io/badge/Try%20it%20Live-pocket--pdf-blue)](https://TheoKVA.github.io/pocket-pdf/)
 [![Made with Love in Switzerland](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F-Switzerland-red.svg)](https://github.com/TheoKVA/)
+
 
 Turn your phone into a document scanner and make clean PDFs – fast, free, and 100% private. Pocket PDF works entirely in your browser, meaning your files never leave your device. No ads, no fees, no hassle.
 
@@ -39,7 +42,7 @@ assets/             # Images and icons
 ## 🖥️ Local Development
 
 ```bash
-git clone https://github.com/yourusername/pocket-pdf.git
+git clone https://github.com/TheoKVA/pocket-pdf.git
 cd pocket-pdf
 open index.html  # or use Live Server
 ```

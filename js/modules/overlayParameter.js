@@ -6,6 +6,7 @@ import { scanner } from '../utils/externalLib.js';
 import { consoleLogCanvas } from '../utils/helper.js';
 import { drawHistogram } from './histogram.js';
 import { positionSliders } from './adjustmentSliders.js'
+import { projectSettings } from './db.js';
 
 // - - - - - - - - - - - - - - -
 
@@ -361,20 +362,28 @@ export function applyLevelsWithOpenCV() {
         let r = srcData[i];
         let g = srcData[i + 1];
         let b = srcData[i + 2];
-        let a = srcData[i + 3]; // Alpha channel
-
-        // Convert to grayscale if needed
-        if (colorMode == 'grayscale') {
-            const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
-            r = g = b = gray;
+        let a = srcData[i + 3];
+    
+        let gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+    
+        if (colorMode === 'black-white') {
+            const threshold = tempEntry.imageParameters.filter.blackAndWhite || 127;
+            const bw = gray > threshold ? 255 : 0;
+            dstData[i] = dstData[i + 1] = dstData[i + 2] = bw;
+            dstData[i + 3] = a;
+        } else if (colorMode === 'grayscale') {
+            const value = lut[gray];
+            dstData[i] = dstData[i + 1] = dstData[i + 2] = value;
+            dstData[i + 3] = a;
+        } else {
+            // color mode — apply LUT separately to each channel
+            dstData[i] = lut[r];
+            dstData[i + 1] = lut[g];
+            dstData[i + 2] = lut[b];
+            dstData[i + 3] = a;
         }
-
-        // Apply LUT
-        dstData[i] = lut[r];
-        dstData[i + 1] = lut[g];
-        dstData[i + 2] = lut[b];
-        dstData[i + 3] = a; // Preserve alpha channel
     }
+    
 
     // Update the canvas
     console.log('Updating the canvas...');
@@ -614,11 +623,18 @@ function parametersSave() {
     // Add the canvas to the data
     tempEntry.imagePagePreview.source = processedCanvas.toDataURL('image/jpeg');
 
+    // Save selected format & compression into the entry
+    tempEntry.imageParameters.format.name = projectSettings.format.name;
+    tempEntry.imageParameters.format.widthMM = projectSettings.format.widthMM;
+    tempEntry.imageParameters.format.heightMM = projectSettings.format.heightMM;
+    tempEntry.imageParameters.format.dpi = projectSettings.format.dpi;
+    tempEntry.imageParameters.compression = projectSettings.compression;
+
     // Update the DB
     saveTempEntry();
 
     // Cleanup
-    cleanup();
+    cleanupVariables();
 
     // Update the page in the DOM
     updatePageElement(tempEntry.id);
@@ -631,7 +647,7 @@ function parametersCancel() {
     console.log('> parametersCancel()');
 
     // Cleanup
-    cleanup();
+    cleanupVariables();
 
     // Hide UI
     hideParameterOverlay();

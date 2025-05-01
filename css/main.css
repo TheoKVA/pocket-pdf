@@ -26,8 +26,10 @@
 /* ==================== */
 
 :root {
-    --page-background-color: #F6F6F6;
+    --body-background-color: #ffffff;
+    --page-background-color: #f0f1f3;
     --radius-ref: 300px;
+    --window-max-width: 500px;
 }
 
 *,
@@ -50,7 +52,7 @@ body {
     font-weight: 400;
 
     height: 100%;
-    background-color: var(--page-background-color);
+    background-color: var(--body-background-color);
 }
 
 
@@ -67,10 +69,21 @@ body {
     transform: scale(1);
     /* overflow-y: hidden; */
 
+    max-width: var(--window-max-width);
+    left:0;
+
     /* style */
     /* padding: 10px; */
     background-color: var(--page-background-color);
 }
+
+@media screen and (max-width: 1024px) {
+    .css-page {
+        left: calc(50% - var(--window-max-width) / 2);
+    }
+}
+
+
 
 .css-page > * {
     border: 0px solid blue

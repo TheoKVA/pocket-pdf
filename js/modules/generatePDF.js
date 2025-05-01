@@ -64,6 +64,13 @@ export async function generatePDF() {
             // Calculate dimensions based on corner points
             const { topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner } = entry.cornerPoints;
 
+            if (!topLeftCorner || !topRightCorner || !bottomLeftCorner || !bottomRightCorner) {
+                console.warn(`Invalid corner points for page ${entry.pageIndex}. Skipping.`);
+                // Standard width and height calculation
+                widthPx = Math.round((widthMM / 25.4) * dpi);
+                heightPx = Math.round((heightMM / 25.4) * dpi);
+            }
+
             // Calculate aspect ratio from the corners
             const topWidth = Math.sqrt(Math.pow(topRightCorner.x - topLeftCorner.x, 2) + Math.pow(topRightCorner.y - topLeftCorner.y, 2));
             const bottomWidth = Math.sqrt(Math.pow(bottomRightCorner.x - bottomLeftCorner.x, 2) + Math.pow(bottomRightCorner.y - bottomLeftCorner.y, 2));
@@ -328,7 +335,7 @@ formatSelect.addEventListener('change', (event) => {
 //  HELPER
 // --------
 
-function applyLevelsToMat(src, dst, filter) {
+function applyLevelsToMat_old(src, dst, filter) {
     console.log('Applying levels adjustment with filter:', filter);
 
     const { black, white, middle, grayscale } = filter;
@@ -355,5 +362,53 @@ function applyLevelsToMat(src, dst, filter) {
     const dstData = dst.data;
     for (let i = 0; i < srcData.length; i++) {
         dstData[i] = lut[srcData[i]];
+    }
+}
+function applyLevelsToMat(src, dst, filter) {
+    console.log('Applying levels adjustment with filter:', filter);
+
+    const {
+        black,
+        white,
+        middle,
+        colorMode = 'color',
+        blackAndWhite = 127
+    } = filter;
+
+    // Create LUT for level adjustment
+    const lut = new Uint8Array(256);
+    for (let i = 0; i < 256; i++) {
+        let value = (i - black) / (white - black);
+        value = Math.max(0, Math.min(1, value));
+        value = Math.pow(value, middle);
+        lut[i] = Math.round(value * 255);
+    }
+
+    const srcData = src.data;
+    const dstData = dst.data;
+
+    for (let i = 0; i < srcData.length; i += 4) {
+        const r = srcData[i];
+        const g = srcData[i + 1];
+        const b = srcData[i + 2];
+        const a = srcData[i + 3];
+
+        if (colorMode === 'grayscale') {
+            const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+            const v = lut[gray];
+            dstData[i] = dstData[i + 1] = dstData[i + 2] = v;
+            dstData[i + 3] = a;
+        } else if (colorMode === 'black-white') {
+            const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+            const bw = gray > blackAndWhite ? 255 : 0;
+            dstData[i] = dstData[i + 1] = dstData[i + 2] = bw;
+            dstData[i + 3] = a;
+        } else {
+            // color
+            dstData[i] = lut[r];
+            dstData[i + 1] = lut[g];
+            dstData[i + 2] = lut[b];
+            dstData[i + 3] = a;
+        }
     }
 }
