@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pocket PDF</title>
+
+
+    <!-- STYLE -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- LIBRAIRIES JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heic2any/dist/heic2any.min.js"></script>
+    <script src="https://docs.opencv.org/4.7.0/opencv.js"></script>
+    <!-- <script src="https://docs.opencv.org/4.x/opencv.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js"></script>
+
+    <!-- SCRIPT -->
+    <script type="module" src="js/main.js"></script>
+
+    <!-- MOBILE DEBUG -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script defer> 
+        function checkIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
+        if (checkIOS()) eruda.init();
+    </script>
+
+</head>
+
+<body>
+
+    <!-- =========== -->
+    <!--  MAIN PAGE  -->
+    <!-- =========== -->
+
+    <div class="css-page">
+
+        <!-- ------------- -->
+        <!--  TOP SECTION  -->
+        <!-- ------------- -->
+
+        <div class="css-expandable-section">
+            <div class="css-expandable-content" data-hidden="true">
+                <p style="text-align: center; font-size: 18px; font-weight: 600;">Pocket PDF</p>
+                <p style="text-align: center; font-size: 12px; margin-bottom: 7px;">Free & Private Mobile Document Scanner</p>
+                <p>Turn your phone into a document scanner and make clean PDFs – fast, free, and 100% private. 
+                    Pocket PDF works entirely in your browser, meaning your files never leave 
+                    your device. No ads, no fees, no hassle.
+                <p> <b class="top-title">Private & Safe</b> 🔒 
+                    <br>All processing happens locally. No uploads, no worries.
+                    We don’t see your files, and neither does anyone else.
+                    <br><b class="top-title">No Fees, No Ads</b> 💸
+                    <br>It's a free Web App. A simple tool built for everyone – no catches.
+                    <br><b class="top-title">Easy to Use</b> 😇
+                    <br>Drag, drop, adjust, and create your perfect PDF in just a few clicks.
+                    <br><b class="top-title">Powerful Features</b> 💪
+                    <br>Grayscale, black-and-white, or full-color options.
+                    Custom formats like A4, A5, receipts, or even cards.
+                    DPI and compression adjustments for the perfect balance of quality and size.
+                    <!-- <br><b>How It Works</b>
+                    <br>- Upload or drag-and-drop your files.
+                    <br>- Make adjustments with our intuitive tools.
+                    <br>- Download your optimized PDF – instantly. -->
+                </p>
+                <style>
+                    .top-title {
+                        padding-top: 10px;
+                    }
+                </style>
+            </div>
+            <button class="css-expandable-toggle" data-expanded="false" onclick="toggleSection(this)">
+                <svg width="29" height="19" viewBox="0 0 29 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 3L14.5 15L27 3" stroke="black" stroke-width="5"/>
+                </svg>        
+            </button>
+
+            <script>
+                function toggleSection(toogle) {
+                    const isExpanded = toogle.dataset.expanded === 'true';
+                    toogle.dataset.expanded = !isExpanded;
+                    toogle.previousElementSibling.dataset.hidden = isExpanded;
+                }
+            </script>
+        </div>
+
+
+        <!-- -------------- -->
+        <!-- MIDDLE SECTION -->
+        <!-- -------------- -->
+
+        <div class="css-middle-section">
+            <div id="js-page-container" class="css-page-container">
+                <!-- Typical child template -->
+                <div id="js-page-template" style="display: none;" class="css-page-element">
+                    <img src="" alt="Page Preview" class="page-preview css-page-image" style="width: 100px; height: 100px;">
+                    <p class="page-index css-page-index"></p>
+                </div>
+            </div>
+            <div id="btn-add-image" class="my-button my-button-30px my-button-blue">
+                <p>Add a Page</p>
+            </div>
+        </div>
+
+
+        <!-- -------------- -->
+        <!-- BOTTOM SECTION -->
+        <!-- -------------- -->
+
+        <div class="css-bottom-section">
+            <!-- EXPORT SECTION -->
+
+            <div class="css-generate-side">
+                <!-- labels -->
+                <div>
+                    <label for="export-format-select">Format</label>
+                    <select id="export-format-select" class="css-input css-select">
+                        <option value="A3" data-width="297" data-height="420">A3</option>
+                        <option value="A4" data-width="210" data-height="297" selected>A4</option>
+                        <option value="A5" data-width="148" data-height="210">A5</option>
+                        <option value="Receipt" data-width="60" data-height="auto">Receipt</option>
+                        <option value="Cards" data-width="130" data-height="auto">Cards</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="export-quality-select">Resolution</label>
+                    <select id="export-quality-select" class="css-input css-select">
+                        <option value="100">100 dpi</option>
+                        <option value="200" selected>200 dpi</option>
+                        <option value="300">300 dpi</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="export-compression-select">Quality</label>
+                    <select id="export-compression-select" class="css-input css-select">
+                        <option value="0.5">Low</option>
+                        <option value="0.8" selected>Medium</option>
+                        <option value="0.9">High</option>
+                    </select>
+                </div>
+
+                <!-- button -->
+                <div id="pdf-generate-btn" class="my-button my-button-27px my-button-blue full-width" style="margin-top: 5px;">
+                    <p>Generate PDF</p>
+                </div>
+
+            </div>
+
+            <div class="separateur"></div>
+
+            <div id="pdf-download-section" class="css-export-side" data-active="false">
+                <!-- Download link -->
+                <a id="pdf-download-link" style="display: none"></a>
+                <!-- image -->
+                <img src="src/picto/PDF_image.png" alt="myPDF">
+                <!-- input -->
+                <input id="pdf-download-name-input" type="text" class="css-input css-input-text" value="myScan.pdf" placeholder="PDF name">
+                <!-- button -->
+                <div id="pdf-download-btn" class="my-button my-button-27px my-button-black" style="margin-top: 5px;">
+                    <p>Download PDF</p>
+                </div>
+            </div>
+            
+        </div>
+
+
+        <!-- -------- -->
+        <!--  FOOTER  -->
+        <!-- -------- -->
+
+        <div class="css-footer-section">
+            <p>Coded with 🖤 by Theo Francart</p>
+            <a class="css-footer-link" href="https://www.google.com" target="_blank" aria-label="GitHub Profile">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 96">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="#24292f"/>
+                </svg>
+            </a>
+        </div>
+        
+    </div>
+
+
+    <!-- ========= -->
+    <!--  OVERLAY  -->
+    <!-- ========= -->
+
+
+    <!-- ----------------- -->
+    <!-- PARAMETER OVERLAY -->
+    <!-- ----------------- -->
+
+    <!-- parameters-container -->
+    <div id="parameters-overlay" class="css-parameter-overlay hidden"> 
+
+        <!-- BACKGROUND -->
+        <div class="css-parameters-background"></div>
+
+        <!-- PAGE -->
+        <div class="css-parameter-container">
+
+            <!-- Top section -->
+            <div class="css-parameter-action" style="gap: 5px;">
+                <!-- Rotate -->
+                <div id="parameter-rotate-left-button" class="my-button my-button-square-22px my-button-white">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="-0.5" y="0.5" width="8" height="9" transform="matrix(-1 0 0 1 17 8)" fill="#B3B3B3" stroke="#B3B3B3"/>
+                        <path d="M2 11H8L5 15L2 11Z" fill="#B3B3B3"/>
+                        <path d="M13 3C13.5523 3 14 3.44772 14 4C14 4.55228 13.5523 5 13 5V3ZM13 5C11.5169 5 10.3388 5.06275 9.39764 5.23387C8.46037 5.40428 7.82464 5.67091 7.3747 6.03087C6.51264 6.72051 6 8.03546 6 11H4C4 7.96454 4.48736 5.77949 6.1253 4.46913C6.92536 3.82909 7.91463 3.47072 9.03986 3.26613C10.1612 3.06225 11.4831 3 13 3V5Z" fill="#B3B3B3"/>
+                    </svg>                        
+                </div>
+                <div id="parameter-rotate-right-button" class="my-button my-button-square-22px my-button-white">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4.5" y="8.5" width="8" height="9" fill="#B3B3B3" stroke="#B3B3B3"/>
+                        <path d="M20 11H14L17 15L20 11Z" fill="#B3B3B3"/>
+                        <path d="M9 3C8.44772 3 8 3.44772 8 4C8 4.55228 8.44772 5 9 5V3ZM9 5C10.4831 5 11.6612 5.06275 12.6024 5.23387C13.5396 5.40428 14.1754 5.67091 14.6253 6.03087C15.4874 6.72051 16 8.03546 16 11H18C18 7.96454 17.5126 5.77949 15.8747 4.46913C15.0746 3.82909 14.0854 3.47072 12.9601 3.26613C11.8388 3.06225 10.5169 3 9 3V5Z" fill="#B3B3B3"/>
+                    </svg>
+                </div>
+
+                <!-- Format Selection -->
+                <div style="display:none;">
+                    <label for="format-select">Format:</label>
+                    <select id="format-select">
+                        <option value="A3">A3</option>
+                        <option value="A4" selected>A4</option>
+                        <option value="A5">A5</option>
+                        <option value="Letter">Letter</option>
+                        <option value="Receipt">Receipt</option>
+                        <option value="Custom">Custom</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Image and Corner Adjustment -->
+            <div id="parameter-image-container" class="css-parameter-image">
+                <!-- Image bg -->
+                <img id="parameter-image" src="https://via.placeholder.com/720x1080/eee?" alt="Loaded Image">
+                <!-- corners -->
+                <div id="top-left-corner" class="corner-marker" style="background-color:red;"></div>
+                <div id="top-right-corner" class="corner-marker"></div>
+                <div id="bottom-left-corner" class="corner-marker"></div>
+                <div id="bottom-right-corner" class="corner-marker"></div>
+                <!-- edges -->
+                <div id="highlight-container">
+                    <svg id="highlight-svg">
+                        <polygon id="highlight-edge-polygon"></polygon>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Color style element -->
+            <div id="js-grayscale" class="my-toggle" style="--option-count: 3;">
+                <div class="my-toggle-option active" data-option="color">Color</div>
+                <div class="my-toggle-option" data-option="grayscale">Grayscale</div>
+                <div class="my-toggle-option" data-option="black-white">B&W</div>
+                <div class="my-toggle-background"></div>
+            </div>
+
+            <!-- Color Levels Adjustment -->
+            <div style="display:none">
+                <div class="my-slider">
+                    <p class="my-slider-label">Black levels:</p>
+                    <input id="black-level-old" type="range" min="0" max="255" value="0" oninput="this.nextElementSibling.innerText = this.value">
+                    <p class="my-slider-value">15</p>
+                </div>
+                <div class="my-slider">
+                    <p class="my-slider-label">Middle levels:</p>
+                    <input id="middle-level-old" type="range" min="0.05" max="1" step="0.05" value="0.5" oninput="this.nextElementSibling.innerText = this.value">
+                    <p class="my-slider-value">0.3</p>
+                </div>
+                <div class="my-slider">
+                    <p class="my-slider-label">White levels:</p>
+                    <input id="white-level-old" type="range" min="0" max="255" value="255" oninput="this.nextElementSibling.innerText = this.value">
+                    <p class="my-slider-value">240</p>
+                </div>
+            </div>
+
+            <!-- New color level adjustment -->
+            <div class="flex-row">
+                <div>
+                    <p>Level adjustment</p>
+                </div>
+                <!-- Histogram & handles -->
+                <div id="histogram-container">
+                    <!-- Canvas for the histogram -->
+                    <canvas id="histogram-canvas"></canvas>
+
+                    <div id="histogram-gradient"></div>
+
+                    <!-- Draggable sliders -->
+                    <div id="sliders-container">
+                        <div id="multi-color-sliders" class="slider-group">
+                            <!-- sliders -->
+                            <div class="slider-handle" data-input-id="black-level"></div>
+                            <div class="slider-handle" data-input-id="middle-level"></div>
+                            <div class="slider-handle" data-input-id="white-level"></div>
+                            <!-- inputs -->
+                            <input id="black-level" type="range" min="0" max="255" value="0">
+                            <input id="middle-level" type="range" min="0.05" max="1" step="0.05" value="0.5">
+                            <input id="white-level" type="range" min="0" max="255" value="255" >
+                        </div>
+                        <div id="mono-color-sliders" class="slider-group">
+                            <!-- slider -->
+                            <div class="slider-handle" data-input-id="black-and-white-level"></div>
+                            <!-- inputs -->
+                            <input id="black-and-white-level" type="range" min="0" max="255" value="125">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Section -->
+            <div class="flex-row" style="margin-top: 10px; gap: 5px;">
+                <div id="parameter-delete-button" class="my-button my-button-27px my-button-white" style="width: 80px; color:#FF7F78;">
+                    <p>Delete</p>
+                </div>
+                <div style="flex:1"></div>
+                <div id="parameter-cancel-button" class="my-button my-button-27px my-button-white" style="width: 80px;">
+                    <p>Cancel</p>
+                </div>
+                <div id="parameter-save-button" class="my-button my-button-27px my-button-blue" style="width: 80px;">
+                    <p>Save</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- --------------- -->
+    <!-- LOADING OVERLAY -->
+    <!-- --------------- -->
+
+    <div id="loading-overlay" class="css-loading-overlay hidden">
+        <div class="css-loading-circle"></div>
+        <p id="loading-output">Loading...</p>
+    </div>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ================= -->
+    <!-- HIDDEN FILE INPUT -->
+    <!-- ================= -->
+
+    <input id="fileInput" type="file" accept="image/*" multiple style="display: none;">
+    <!-- <input id="js-fileInput" type="file" accept="image/*" capture="environment" multiple style="display: none;"> -->
+    
+</body>
+
+<script defer>
+
+    // ===========
+    //  MY TOOGLE
+    // ===========
+
+    document.querySelectorAll('.my-toggle').forEach((toggleContainer) => {
+        const toggleOptions = toggleContainer.querySelectorAll('.my-toggle-option');
+        const toggleBackground = toggleContainer.querySelector('.my-toggle-background');
+
+        // Initialize the state based on the currently active option
+        const initialActive = toggleContainer.querySelector('.my-toggle-option.active');
+        if (initialActive) {
+            toggleContainer.dataset.activeOption = initialActive.dataset.option;
+        }
+
+        // Event listener for each option
+        toggleOptions.forEach((option, index) => {
+            option.addEventListener('click', () => {
+                // Remove the active class from all options
+                toggleOptions.forEach(opt => opt.classList.remove('active'));
+                // Add the active class to the clicked option
+                option.classList.add('active');
+                // Slide the highlight background
+                toggleBackground.style.left = `${index * 100 / toggleOptions.length}%`;
+                // Update the data attribute with the new active option
+                toggleContainer.dataset.activeOption = option.dataset.option;
+            });
+        });
+    });
+
+    // Example usage
+    // const toggleContainer = document.getElementById('my-toggle-container');
+    // setToggleState(toggleContainer, 'Color'); // Set the state to "Color"
+    function setToggleState(container, state) {
+        // Update the `data-state` attribute of the container
+        container.dataset.activeOption = state;
+
+        // Get all options in the toggle
+        const allOptions = container.querySelectorAll('.my-toggle-option');
+        const toggleBackground = container.querySelector('.my-toggle-background');
+
+        // Loop through options to update their active class
+        allOptions.forEach((option, index) => {
+            if (option.dataset.option === state) {
+                option.classList.add('active');
+                // Update the background position
+                toggleBackground.style.left = `${index * 100 / allOptions.length}%`;
+            } else {
+                option.classList.remove('active');
+            }
+        });
+    }
+</script>
+
+
+</html>

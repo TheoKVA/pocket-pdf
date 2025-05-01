@@ -1,0 +1,36 @@
+.css-footer-section {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    width: 100%;
+
+    /* inside */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    
+    /* typo */
+    text-align: center;
+    font-size: 12px;
+    line-height: normal;
+    opacity: 0.3;
+}
+
+.css-footer-link {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}
+
+.css-footer-link svg {
+    width: 100%;
+    height: auto;
+}
+
+.css-footer-link:hover,
+.css-footer-link:focus {
+    opacity: 0.6;
+    transform: scale(1.1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}

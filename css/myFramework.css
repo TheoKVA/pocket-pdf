@@ -1,0 +1,72 @@
+
+/* ==================== */
+/* CUSTOM CSS FRAMEWORK */
+/* ==================== */
+
+.temp {
+    border: solid green 1px;
+}
+.no-click { 
+    pointer-events: none;
+}
+.no-select {
+    user-select: none;
+}
+.pending {
+    opacity:0.3 !important;
+    pointer-events: none;
+}
+.full-width {
+    width: 100%;
+}
+.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 50%; */
+}
+.no-decoration { 
+    text-decoration: none; 
+}
+.no-scroll {
+    overflow: hidden;
+}
+.hidden {
+    display: none !important;
+}
+.invisible {
+    opacity: 0 !important;
+}
+
+
+/* GUIDE TO FLEX : https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.flex {
+    display: flex;
+    align-items: stretch;
+}
+
+/* SEPARATEURS */
+.separateur {
+    border-left: solid #bebed2 1px;
+    opacity: 0.5;
+    width: 0%;
+}
+.separateur-horizontal {
+    border-bottom: solid #cdcddd 1px;
+    width: 100%;
+}

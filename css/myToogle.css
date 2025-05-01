@@ -1,0 +1,74 @@
+
+/* Container for the toggle */
+.my-toggle {
+    --option-count: attr(data-option-count); /* Get the count from the data attribute */
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    align-items: center;
+
+    /* width: 200px; */
+    height: 27px;
+    min-height: 27px;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+
+    border: 1px solid rgb(220, 220, 220);
+    background-color: #FFF;
+    font-size: 14px;
+}
+
+/* Individual options */
+.my-toggle-option {
+    /* display */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* size */
+    position: relative;
+    flex: 1; /* Evenly distributes width */
+    /* width: 33.33%; */
+    /* width: calc(100% / var(--option-count)); */
+    height: 100%;
+    z-index: 2;
+
+    /* style */
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+
+    /* typo */
+    color: #000;
+    font-family: Inter, sans-serif;
+    font-weight: 400; /* semi-bold */
+}
+
+/* Sliding highlight background */
+.my-toggle-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% / var(--option-count));
+    height: 100%;
+    background: linear-gradient(180deg, #208FF7 0%, #0080FF 100%);
+    transition: left 0.2s ease;
+    border-radius: 0px;
+    z-index: 1;
+}
+
+/* Highlighted text */
+.my-toggle-option.active {
+    color: #fff;
+    font-weight: 600; /* Semi-Bold */
+    transition: color 0.2s ease, font-weight 0.2s ease;
+}
+/* Unselected text */
+.my-toggle-option:not(.active) {
+    color: #000;
+    font-weight: 400; /* Normal */
+    transition: color 0.2s ease, font-weight 0.2s ease;
+}

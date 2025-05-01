@@ -1,0 +1,82 @@
+:root {
+    --histogram-width: 200px;
+    --histogram-height: 50px;
+}
+
+/* Histogram Overlay Styling */
+#histogram-container {
+    /* position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; */
+    width: var(--histogram-width);
+    height: auto;
+
+    /* style */
+    /* background-color: rgba(255, 255, 255, 0.6); */
+    /* border: 1px solid salmon; */
+
+    /* inside */
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    /* align-items: center; */
+    /* justify-content: flex-start; */
+}
+
+/* #histogram-container > * {
+    border: 1px solid skyblue;
+} */
+
+#sliders-container > * > input {
+    display: none;
+}
+
+/* CANVAS */
+#histogram-canvas {
+    width: var(--histogram-width);
+    height: var(--histogram-height);
+    background: #ffffff;
+    /* border: 1px solid #ccc; */
+}
+
+/* GRADIANT */
+#histogram-gradient {
+    width: var(--histogram-width);
+    height: 10px;
+    background: linear-gradient(to right, black, white); /* Black-to-white gradient */
+}
+
+/* Sliders Container Styling */
+#sliders-container {
+    width: var(--histogram-width);
+    height: 16px;
+    position: relative; /* Parent for draggable children */
+    background: rgba(255, 255, 255, 0.1); /* Light overlay for better contrast */
+}
+
+/* Individual Slider Handle Styling */
+/* .slider-handle {
+    position: absolute;
+    top: 0;
+    width: 10px;
+    height: 30px;
+    background-color: red;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+} */
+
+.slider-handle {
+    position: absolute;
+    top: 0;
+    width: 19px; /* Match SVG width */
+    height: 14px; /* Match SVG height */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='14' viewBox='0 0 19 14' fill='none'%3E%3Cpath d='M10.7288 0.755498L18.3479 11.6398C19.0438 12.634 18.3326 14 17.119 14L1.88098 14C0.667448 14 -0.0437812 12.634 0.652136 11.6398L8.27115 0.755496C8.86831 -0.0975794 10.1317 -0.0975773 10.7288 0.755498Z' fill='black' fill-opacity='0.3'/%3E%3Cpath d='M10.3192 1.04223L17.9382 11.9265C18.4022 12.5893 17.928 13.5 17.119 13.5L1.88098 13.5C1.07196 13.5 0.597807 12.5893 1.06175 11.9265L8.68077 1.04223C9.07887 0.473511 9.92113 0.473511 10.3192 1.04223Z' stroke='black' stroke-opacity='0.2'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+    user-select: none; /* Prevent selection during dragging */
+}

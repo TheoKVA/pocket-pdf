@@ -1,0 +1,66 @@
+/* ======== */
+/*  BUTTON  */
+/* ======== */
+
+.my-button {
+    /* position */
+    display: flex;
+    /* display: inline-block; */
+    cursor: pointer;
+
+    /* size */
+    border-radius: 3px;
+    
+    /* position */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    /* vertical-align: middle; */
+
+    /* typo */
+    color: #000;
+    font-family: Inter, sans-serif;
+    /* font-style: normal; */
+    font-weight: 600; /* semi-bold */
+}
+
+/* SIZE */
+.my-button-27px {
+    height: 27px;
+    min-height: 27px;
+    font-size: 14px;
+    line-height: 14px;
+}
+.my-button-30px {
+    height: 30px;
+    min-height: 30px;
+    font-size: 18px;
+    line-height: 18px;
+}
+.my-button-square-22px {
+    height: 22px;
+    min-height: 22px;
+    width: 22px;
+    min-width: 22px;
+}
+
+/* COLOR */
+.my-button-white {
+    background: #FFF;
+    border: 1px solid rgb(220, 220, 220);
+    box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.05);
+}
+.my-button-blue {
+    background: linear-gradient(180deg, #208FF7 0%, #0080FF 100%);
+    border: 0px solid #FFF;
+    box-shadow: 0 0 0px 0px rgba(0,0,0,0);
+    color: #FFF;
+}
+.my-button-black {
+    background: linear-gradient(180deg, #333333 0%, #000000 100%);
+    opacity: 0.5;
+    border: 0px solid #FFF;
+    box-shadow: 0 0 0px 0px rgba(0,0,0,0);
+    color: #FFF;
+}

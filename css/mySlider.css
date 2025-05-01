@@ -1,0 +1,44 @@
+/* 
+    <!-- mySlider -->
+    <div class="my-slider" style="display: none;">
+        <p class="my-slider-label">Description</p>
+        <input type="range" min="0" max="100" value="50" oninput="this.nextElementSibling.innerText = this.value">
+        <p class="my-slider-value">10</p>
+    </div> 
+*/
+
+.my-slider {
+    /* size */
+    width: 100% ;
+    height: 15px;
+
+    /* display */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+
+    /* typo */
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+}
+
+.my-slider input {
+    width: 100%;
+}
+
+.my-slider .my-slider-label {
+    width: 150px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: right;
+    /* color:#7E6D57; */
+}
+
+.my-slider .my-slider-value {
+    width: 50px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: left;
+    /* color:#7E6D57; */
+}

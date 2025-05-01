@@ -1,0 +1,66 @@
+.css-expandable-section {
+    --initial-height: 140px;
+    --animation-timing: 0.5s;
+
+    overflow: hidden;
+    position: relative;
+
+    /* typo */
+    font-family: 'Inter', sans-serif;
+    color: #000000;
+    font-style: normal;
+    font-weight: 400; /* regular */
+    font-size: 14px;
+    line-height: 19px;
+
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+        pointer-events: none; 
+    };
+}
+
+/* TOGGLE */
+.css-expandable-toggle {
+    position: absolute; /* Position relative to the css-expandable-section */
+    bottom: 0; /* Place it at the bottom of the section */
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg); /* Center horizontally */
+    z-index: 2; /* Ensure it appears above the content */
+
+    background: none;
+    border: none;
+    padding: 0px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: transform var(--animation-timing) ease;
+}
+.css-expandable-toggle[data-expanded="true"] {
+    transform: translateX(-50%) rotate(180deg);
+}
+.toggle-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+
+/* CONTENT */
+.css-expandable-content {
+    max-height: var(--initial-height);
+    overflow: hidden;
+    transition: max-height var(--animation-timing) ease;
+    padding: 15px;
+    padding-bottom: 30px;
+    position: relative; /* Maintain stacking context */
+    z-index: 1; /* Ensure content stays below the toggle */
+}
+
+.css-expandable-content[data-hidden="false"] {
+    max-height: 700px; /* Adjust to accommodate your content */
+}

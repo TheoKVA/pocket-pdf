@@ -1,0 +1,83 @@
+
+/* =========== */
+/*   IMPORTS   */
+/* =========== */
+
+/* FRAMEWORK */
+@import "myFramework.css";
+@import "myToogle.css";
+@import "myButton.css";
+@import "mySlider.css";
+
+/* PAGE */
+@import "sectionPageTop.css";
+@import "sectionPageMiddle.css";
+@import "sectionPageBottom.css";
+@import "sectionPageFooter.css";
+@import "histogram.css";
+
+/* OVERLAY */
+@import "sectionOverlayParameter.css";
+@import "sectionOverlayLoading.css";
+
+
+/* ==================== */
+/*   GLOBAL VARIABLES   */
+/* ==================== */
+
+:root {
+    --page-background-color: #F6F6F6;
+    --radius-ref: 300px;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box; /* To make sure padding doesn't increase the overall width */
+}
+
+/* OTHER */
+
+body {
+    /* TYPO */
+    font-family: 'Inter', Arial, sans-serif;
+    color: #000000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+
+    height: 100%;
+    background-color: var(--page-background-color);
+}
+
+
+
+/* ============= */
+/*   MAIN PAGE   */
+/* ============= */
+
+.css-page {
+    /* position */
+    position: relative;
+    height: calc(100vh);
+    transform-origin: 0 0;
+    transform: scale(1);
+    /* overflow-y: hidden; */
+
+    /* style */
+    /* padding: 10px; */
+    background-color: var(--page-background-color);
+}
+
+.css-page > * {
+    border: 0px solid blue
+}
+.css-middle-section > * {
+    border: 0px solid rgb(255, 139, 139)
+}
+.css-footer-section > * {
+    border: 0px solid rgb(255, 139, 139)
+}
