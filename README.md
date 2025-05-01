@@ -16,8 +16,8 @@ Turn your phone into a document scanner — no installs, no sign-ups, no trackin
 - 📸 **Image input**: Upload from camera or file (with drag & drop support)
 - 🧠 **Auto corner detection**: Automatically finds paper edges using OpenCV.js
 - ✂ **Manual sdjustment**: Drag corner handles if auto-detection isn't perfect
-- 🎛 **Image enhancements**: Grayscale, black & white, or full-color with real-time histogram
-- 📏 **Format control**: Output to A3, A4, A5, cards, or receipt format (with auto-sizing)
+- 🎛 **Image enhancements**: Grayscale, black & white, or full-color with real-time adjustements
+- 📏 **Format control**: Output to A3, A4, A5, etc.
 - 🖼 **Multi-page support**: Reorder pages visually, delete or re-edit on click
 - 📄 **PDF export**: Choose DPI and compression for best balance of size and quality
 - 💾 **100% offline**: All processing happens in the browser — no uploads, no analytics
