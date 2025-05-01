@@ -69,19 +69,14 @@ body {
     transform: scale(1);
     /* overflow-y: hidden; */
 
+    margin: 0 auto; /* center horizontally */
     max-width: var(--window-max-width);
-    left:0;
 
     /* style */
     /* padding: 10px; */
     background-color: var(--page-background-color);
 }
 
-@media screen and (max-width: 1024px) {
-    .css-page {
-        left: calc(50% - var(--window-max-width) / 2);
-    }
-}
 
 
 

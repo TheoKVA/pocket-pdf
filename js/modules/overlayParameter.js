@@ -664,6 +664,9 @@ function parametersDelete() {
 
     // Remove from the DB
     deleteTempEntry();
+
+    // Hide UI
+    hideParameterOverlay();
 }
 
 
