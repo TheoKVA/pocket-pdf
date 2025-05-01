@@ -11,7 +11,7 @@ Turn your phone into a document scanner — no installs, no sign-ups, no trackin
 
 ![Screenshot of Pocket PDF](assets/screenshot.png)
 
-## 🧩 Features
+## Features
 
 - 📸 **Image input**: Upload from camera or file (with drag & drop support)
 - 🧠 **Auto corner detection**: Automatically finds paper edges using OpenCV.js
@@ -22,26 +22,25 @@ Turn your phone into a document scanner — no installs, no sign-ups, no trackin
 - 📄 **PDF export**: Choose DPI and compression for best balance of size and quality
 - 💾 **100% offline**: All processing happens in the browser — no uploads, no analytics
 
-## 🔐 Why it's different
+## Why it's different
 
 - **No servers. No trackers. No backend.**
 - Runs on [OpenCV.js](https://docs.opencv.org/4.x/d5/d10/tutorial_js_root.html) and [PDF-lib](https://pdf-lib.js.org/)
 - Built with privacy-first design: ideal for journalists, travelers, or anyone who values control
 
-## 🚀 Try it online
+## Try it online
 
 > [👉 Launch Pocket PDF](https://TheoKVA.github.io/pocket-pdf/)
 
+## Local development
 
-## 🧱 Built with
+```bash
+git clone https://github.com/TheoKVA/pocket-pdf.git
+cd pocket-pdf
+open index.html  # or use Live Server
+```
 
-- Vanilla JS, HTML, and CSS
-- [OpenCV.js](https://docs.opencv.org/4.x/d5/d10/tutorial_js_root.html) 
-- [PDF-lib](https://pdf-lib.js.org/)
-- [HEIC2Any](https://github.com/alexcorvi/heic2any) for iOS camera support
-- ❤️ by Theo Francart
-
-## 🗂 Project structure
+Project structure
 
 ```bash
 index.html           # Entry point
@@ -50,14 +49,15 @@ js/                  # Logic modules (input, processing, PDF export)
 src/                 # Static assets (icons, images)
 ```
 
-## 🖥️ Local development
+## Authors and acknowledgment
 
-```bash
-git clone https://github.com/TheoKVA/pocket-pdf.git
-cd pocket-pdf
-open index.html  # or use Live Server
-```
+- Coded with Vanilla JS, HTML, and CSS
+- Use of [OpenCV.js](https://docs.opencv.org/4.x/d5/d10/tutorial_js_root.html) 
+- Use of [PDF-lib](https://pdf-lib.js.org/)
+- Use of [HEIC2Any](https://github.com/alexcorvi/heic2any) for iOS camera support
+- Built with ❤️ by Theo Francart
 
-## 📢 License
+
+## License
 
 MIT License — use freely and fork responsibly.
