@@ -15,6 +15,9 @@ const downloadLink = document.getElementById('pdf-download-link');
 const downloadNameInput = document.getElementById('pdf-download-name-input');
 const downloadPdfButton = document.getElementById('pdf-download-btn');
 
+// CONSTS
+const COMPRESSION_DOWNSCALE = 0.75; // Reduce by 25%
+
 
 // - - - - - - - - - - - - - - -
 
@@ -139,8 +142,8 @@ export async function generatePDF() {
         // Prepare the canvas
         const finalCanvas = document.createElement('canvas');
         const ctx = finalCanvas.getContext('2d');
-        finalCanvas.width = widthPx;
-        finalCanvas.height = heightPx;
+        finalCanvas.width = Math.round(widthPx * COMPRESSION_DOWNSCALE);
+        finalCanvas.height = Math.round(heightPx * COMPRESSION_DOWNSCALE);
 
         // Draw adjusted image on finalCanvas
         cv.imshow(finalCanvas, dst);

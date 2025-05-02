@@ -439,7 +439,7 @@ function updateImage() {
 // - - - - - - - - - - - - - - -
 
 
-const markerSize = 16;
+const markerSize = 20;
 let markersIsSet = false;
 
 // Position UI markers the first time 
@@ -525,8 +525,17 @@ function updateEdges() {
 // Function to make markers draggable
 // Only once
 function makeMarkersDraggable(marker, cornerKey) {
+    const MARKER_SIZE = 20; // defined in the css
     const markerOffset_final = { x: -20, y: -20 }; // Finger offset
     const markerOffset = { x: 0, y: 0 }; // For testing
+
+    // Magnifier
+    const magnifier = document.getElementById('magnifier');
+    const magnifierCanvas = document.getElementById('magnifier-canvas');
+    const magnifierCtx = magnifierCanvas.getContext('2d');
+    const MAGNIFIER_SIZE = 100; // defined in the css
+
+
 
     const moveMarkerAt = (x, y) => {
         console.log('> moveMarkerAt()');
@@ -536,11 +545,10 @@ function makeMarkersDraggable(marker, cornerKey) {
         let c = tempEntry.imageOriginal.size;
 
         // Update the UI
-        marker.style.left = `${Math.max(-8, x - 8 - b.containerLeft)}px`;
-        marker.style.top = `${Math.max(-8, y - 8 - b.containerTop)}px`;
+        marker.style.left = `${Math.max(-MARKER_SIZE/2, x - MARKER_SIZE/2 - b.containerLeft)}px`;
+        marker.style.top = `${Math.max(-MARKER_SIZE/2, y - MARKER_SIZE/2 - b.containerTop)}px`;
         // marker.style.top = `${Math.max(-8, y - b.top)}px`;
 
-        // Refaire la trad !
         tempEntry.cornerPoints[cornerKey] = {
             x: c.width * (x - b.containerLeft - b.left ) / b.width, 
             y: c.height * (y - b.containerTop - b.top ) / b.height
@@ -548,6 +556,42 @@ function makeMarkersDraggable(marker, cornerKey) {
 
         // Update the polygon
         updateEdges();
+
+        // Show magnifier above finger
+        magnifier.classList.remove('hidden');
+        magnifier.style.left = `${x - MAGNIFIER_SIZE - b.containerLeft}px`;
+        magnifier.style.top = `${y - MAGNIFIER_SIZE - b.containerTop}px`;
+
+        // Zoom in around the drag point
+        const zoom = 3;
+        const size = MAGNIFIER_SIZE / 2;
+        // const localX = c.width * (x - b.containerLeft - b.left) / b.width;
+        // const localY = c.height * (y - b.containerTop - b.top) / b.height;
+        const localX = workingCanvas.width * (x - b.containerLeft - b.left) / b.width;
+        const localY = workingCanvas.height * (y - b.containerTop - b.top) / b.height;
+        
+        // Scale preview-local coords back up to workingCanvas coords
+        // const canvasX = localX * scaleFactor;
+        // const canvasY = localY * scaleFactor;
+
+        magnifierCtx.clearRect(0, 0, 100, 100);
+        // magnifierCtx.rect(0, 0, 100, 100);
+        // magnifierCtx.fillStyle = 'grey';
+        // magnifierCtx.fill();
+        magnifierCtx.drawImage(
+            workingCanvas,
+            localX - size / zoom, localY - size / zoom,
+            size / zoom * 2, size / zoom * 2,
+            0, 0, 100, 100
+        );
+        
+        magnifierCtx.strokeStyle = 'rgba(0, 255, 208, 1)';
+        magnifierCtx.beginPath();
+        magnifierCtx.moveTo(50, 0);
+        magnifierCtx.lineTo(50, 100);
+        magnifierCtx.moveTo(0, 50);
+        magnifierCtx.lineTo(100, 50);
+        magnifierCtx.stroke();
 
         // on indique un changement
         tempEntry.changeOccured = true;
@@ -561,6 +605,7 @@ function makeMarkersDraggable(marker, cornerKey) {
         e.preventDefault();
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', () => {
+            magnifier.classList.add('hidden');
             document.removeEventListener('mousemove', onMouseMove);
             // console.log(tempEntrie.cornerPoints);
         }, { once: true });
@@ -573,6 +618,7 @@ function makeMarkersDraggable(marker, cornerKey) {
         moveMarkerAt(touch.clientX + markerOffset.x, touch.clientY + markerOffset.y); // Set initial position
         document.addEventListener('touchmove', onTouchMove);
         document.addEventListener('touchend', () => {
+            magnifier.classList.add('hidden');
             document.removeEventListener('touchmove', onTouchMove);
             // console.log(tempEntrie.cornerPoints);
         }, { once: true });

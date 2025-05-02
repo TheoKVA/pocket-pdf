@@ -123,8 +123,8 @@
 /* CORNERS */
 .corner-marker {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     z-index: 10;
     background-color: rgba(0, 255, 208, 0.8);
     border-radius: 50%;
