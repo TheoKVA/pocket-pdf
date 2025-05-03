@@ -478,18 +478,6 @@ function positionMarkers() {
 
     let a = tempEntry;
     let b = tempEntry.imagePreview.position;
-    // let originalSize;
-    // if (a.imageScaled.rotation === 90 || a.imageScaled.rotation === 270) {
-    //     originalSize = { 
-    //         width: a.imageOriginal.size.height, 
-    //         height: a.imageOriginal.size.width 
-    //     };
-    // } else {
-    //     originalSize = { 
-    //         width: a.imageOriginal.size.width, 
-    //         height: a.imageOriginal.size.height
-    //     };
-    // }
     let c = tempEntry.imageOriginal.size;
     let d = tempEntry.cornerPoints;
     // console.log('imageOriginal size', tempEntry.imageOriginal.size);
@@ -553,48 +541,6 @@ function makeMarkersDraggable(marker, cornerKey) {
         let b = tempEntry.imagePreview.position;
         let c = tempEntry.imageOriginal.size;
 
-        // const localX = x - b.containerLeft - MARKER_SIZE / 2;
-        // const localY = y - b.containerTop - MARKER_SIZE / 2;
-
-        // // Clamp to container bounds (accounting for marker size)
-        // const clampedX = Math.max(0, Math.min(localX, b.width - MARKER_SIZE));
-        // const clampedY = Math.max(0, Math.min(localY, b.height - MARKER_SIZE));
-
-        // marker.style.left = `${clampedX}px`;
-        // marker.style.top  = `${clampedY}px`;
-
-        // tempEntry.cornerPoints[cornerKey] = {
-        //     x: (clampedX + MARKER_SIZE / 2) * (c.width / b.width),
-        //     y: (clampedY + MARKER_SIZE / 2) * (c.height / b.height)
-        //   };
-
-        // const clampedX = Math.min(Math.max(b.left, x - b.containerLeft), b.width + b.left);
-        // const clampedY = Math.min(Math.max(b.top, y - b.containerTop), b.width + b.top);
-
-        // // Update the UI
-        // marker.style.left = `${clampedX - MARKER_SIZE/2}px`;
-        // marker.style.top = `${clampedY - MARKER_SIZE/2}px`;
-
-
-        // tempEntry.cornerPoints[cornerKey] = {
-        //     x: c.width * (x - b.containerLeft - b.left ) / b.width, 
-        //     y: c.height * (y - b.containerTop - b.top ) / b.height
-        // };
-
-        // Normalize to [0, 1] range
-        // let normX = (x - b.containerLeft - b.left) / b.width;
-        // let normY = (y - b.containerTop - b.top) / b.height;
-
-        // // Clamp to [0, 1]
-        // normX = Math.max(0, Math.min(1, normX));
-        // normY = Math.max(0, Math.min(1, normY));
-
-        // // Store clamped position in original image space
-        // tempEntry.cornerPoints[cornerKey] = {
-        //     x: normX * c.width,
-        //     y: normY * c.height
-        // };
-
         const x = inputX + inputMarkerOffset.x;
         const y = inputY + inputMarkerOffset.y;
 
@@ -615,8 +561,6 @@ function makeMarkersDraggable(marker, cornerKey) {
             x: (clampedX / b.width) * c.width,
             y: (clampedY / b.height) * c.height,
         };
-
-        
 
         // Update the polygon
         updateEdges();
@@ -697,6 +641,7 @@ function makeMarkersDraggable(marker, cornerKey) {
     //     }, { once: true });
     // });
 
+    // TOUCH AND MOVEMENT EVENT V2
     marker.addEventListener('pointerdown', (e) => {
         e.preventDefault();
         marker.setPointerCapture(e.pointerId);
@@ -808,9 +753,6 @@ function parametersDelete() {
     // Hide UI
     hideParameterOverlay();
 }
-
-
-
 
 
 
