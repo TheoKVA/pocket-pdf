@@ -221,7 +221,7 @@
     <div id="parameters-overlay" class="css-parameter-overlay hidden"> 
 
         <!-- BACKGROUND -->
-        <div class="css-parameters-background"></div>
+        <div class="css-parameters-background js-parameters-background"></div>
 
         <!-- PAGE -->
         <div class="css-parameter-container">
@@ -247,7 +247,7 @@
                 <div style="flex-grow: 1;"></div>
 
                 <div class="flex-row" style="gap: 3px; align-items: center;">
-                    <p style="font-size: 16px;">🔍</p>
+                    <p style="font-size: 15px; line-height: 15px;">🔍</p>
                     <label class="my-switch">
                         <input class="js-show-magnifier" type="checkbox" checked>
                         <span class="slider round"></span>
@@ -302,14 +302,63 @@
                     }
                 </style>
             </div>
-            
-            <!-- Color style element -->
-            <div id="js-grayscale" class="my-toggle" style="--option-count: 3;">
+
+            <!-- TOOGLE COLOR STYLE -->
+            <div id="js-grayscale" class="my-toggle" style="--option-count: 3; margin-top:5px">
                 <div class="my-toggle-option active" data-option="color">Color</div>
                 <div class="my-toggle-option" data-option="grayscale">Grayscale</div>
                 <div class="my-toggle-option" data-option="black-white">B&W</div>
                 <div class="my-toggle-background"></div>
             </div>
+
+            <!-- BOTTOM PARAMETTERS -->
+            <div class="flex-row" style="gap: 10px;">
+
+                <!-- LEFT -->
+                <div class="flex-column" style="gap: 10px">
+
+                    <!-- New color level adjustment -->
+                    <div class="flex-row" style="gap: 5px; justify-content: center;">
+                        <!-- Histogram & handles -->
+                        <div id="histogram-container">
+                            <!-- Canvas for the histogram -->
+                            <canvas id="histogram-canvas"></canvas>
+
+                            <div id="histogram-gradient"></div>
+
+                            <!-- Draggable sliders -->
+                            <div id="sliders-container">
+                                <div id="multi-color-sliders" class="slider-group">
+                                    <!-- sliders -->
+                                    <div class="slider-handle" data-input-id="black-level"></div>
+                                    <div class="slider-handle" data-input-id="middle-level"></div>
+                                    <div class="slider-handle" data-input-id="white-level"></div>
+                                    <!-- inputs -->
+                                    <input id="black-level" type="range" min="0" max="255" value="0">
+                                    <input id="middle-level" type="range" min="0.05" max="1" step="0.05" value="0.5">
+                                    <input id="white-level" type="range" min="0" max="255" value="255" >
+                                </div>
+                                <div id="mono-color-sliders" class="slider-group">
+                                    <!-- slider -->
+                                    <div class="slider-handle" data-input-id="black-and-white-level"></div>
+                                    <!-- inputs -->
+                                    <input id="black-and-white-level" type="range" min="0" max="255" value="125">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- SEPARATEUR -->
+                <div class="separateur"></div>
+
+                <!-- RIGHT -->
+                <div>
+
+                </div>
+            </div>
+            
 
             <!-- Color Levels Adjustment -->
             <div style="display:none">
@@ -330,40 +379,9 @@
                 </div>
             </div>
 
-            <!-- New color level adjustment -->
-            <div class="flex-row" style="gap: 5px; justify-content: center;">
-                
-                <!-- Histogram & handles -->
-                <div id="histogram-container">
-                    <!-- Canvas for the histogram -->
-                    <canvas id="histogram-canvas"></canvas>
-
-                    <div id="histogram-gradient"></div>
-
-                    <!-- Draggable sliders -->
-                    <div id="sliders-container">
-                        <div id="multi-color-sliders" class="slider-group">
-                            <!-- sliders -->
-                            <div class="slider-handle" data-input-id="black-level"></div>
-                            <div class="slider-handle" data-input-id="middle-level"></div>
-                            <div class="slider-handle" data-input-id="white-level"></div>
-                            <!-- inputs -->
-                            <input id="black-level" type="range" min="0" max="255" value="0">
-                            <input id="middle-level" type="range" min="0.05" max="1" step="0.05" value="0.5">
-                            <input id="white-level" type="range" min="0" max="255" value="255" >
-                        </div>
-                        <div id="mono-color-sliders" class="slider-group">
-                            <!-- slider -->
-                            <div class="slider-handle" data-input-id="black-and-white-level"></div>
-                            <!-- inputs -->
-                            <input id="black-and-white-level" type="range" min="0" max="255" value="125">
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Action Section -->
-            <div class="flex-row" style="margin-top: 10px; gap: 5px;">
+            <div class="flex-row" style="margin-top: auto; gap: 5px;">
                 <div id="parameter-delete-button" class="my-button my-button-27px my-button-white" style="width: 80px; color:#FF7F78;">
                     <p>Delete</p>
                 </div>

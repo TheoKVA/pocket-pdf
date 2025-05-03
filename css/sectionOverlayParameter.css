@@ -43,7 +43,7 @@
     /* max-width: 350px; */
     /* height: auto; */
 
-    width: 90%; 
+    width: 95%; 
     min-width: 300px;
     max-width: 500px; 
     max-height: 100%; /* Avoid exceeding the viewport height */
@@ -52,8 +52,8 @@
     /* max-height: 100%; */
     /* style */
     background-color: white;
-    padding: 15px;
-    margin: 15px auto;
+    padding: 10px;
+    margin: 10px auto;
     border-radius: 12px;
 
     /* alignemnt */
@@ -61,7 +61,7 @@
     flex-direction: column;
     flex: 0 1 auto; /* Adjust height based on content */
     overflow-y: auto;
-    gap: 10px;
+    gap: 5px;
     
     /* Center the adjustment container */
     /* text-align: center; */
@@ -78,7 +78,8 @@
 .css-parameter-image {
     position: relative; 
     flex: 1 0 auto; /* Allow the container to grow/shrink based on content */
-    max-height: calc(100vh - 267px);
+    flex-grow: 1;
+    max-height: calc(100vh - 250px);
     min-height: 250px;
     
     display: flex;

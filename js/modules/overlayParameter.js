@@ -8,9 +8,25 @@ import { drawHistogram } from './histogram.js';
 import { positionSliders } from './adjustmentSliders.js'
 import { projectSettings } from './db.js';
 
+
 // - - - - - - - - - - - - - - -
 
-// HTML ELEMENTS
+// VARIABLES
+const IS_TEST = false; // To show by default the UI, for testing
+
+const MARKER_SIZE = 20; // defined in the css
+const MARKER_OFFSET_DESKTOP = { x: 0, y: 0 }; 
+const MARKER_OFFSET_MOBILE = { x: -50, y: -50 }; // Finger offset
+
+const MAGNIFIER_SIZE = 100; // defined in the css
+const MAGNIFIER_ZOOM = 2;
+const MAGNIFIER_OFFSET_DESKTOP = { x: -MAGNIFIER_SIZE, y: -MAGNIFIER_SIZE }; 
+const MAGNIFIER_OFFSET_MOBILE = { x: -MAGNIFIER_SIZE, y: -MAGNIFIER_SIZE };
+
+
+// - - - - - - - - - - - - - - -
+
+// HTML DOM ELEMENTS
 const parameterOverlay = document.getElementById('parameters-overlay');
 const imageContainer  = parameterOverlay.querySelector('#parameter-image-container');
 const imageElem = parameterOverlay.querySelector('#parameter-image');
@@ -37,19 +53,9 @@ const rotateRightButton = parameterOverlay.querySelector('#parameter-rotate-righ
 // MAGNIFIER OPTION
 const magnifierIsChecked = parameterOverlay.querySelector('.js-show-magnifier');
 
-// - - - - - - - - - - - - - - -
-
-// VARIABLES
-const IS_TEST = false; // To show by default the UI, for testing
-
-const MARKER_SIZE = 20; // defined in the css
-const MARKER_OFFSET_DESKTOP = { x: 0, y: 0 }; 
-const MARKER_OFFSET_MOBILE = { x: -30, y: -30 }; // Finger offset
-
-const MAGNIFIER_SIZE = 100; // defined in the css
-const MAGNIFIER_ZOOM = 2;
-const MAGNIFIER_OFFSET_DESKTOP = { x: -MAGNIFIER_SIZE, y: -MAGNIFIER_SIZE }; 
-const MAGNIFIER_OFFSET_MOBILE = { x: -MAGNIFIER_SIZE +20, y: -MAGNIFIER_SIZE+20 };
+// BACKGROUND
+const background = parameterOverlay.querySelector('.js-parameters-background');
+background.addEventListener('click', parametersCancel);
 
 
 
@@ -356,7 +362,6 @@ export function applyLevelsWithOpenCV() {
     let srcData = workingSrc.data;
     let dstData = workingDst.data;
 
-
     // Prepare the LUT
     const lut = new Uint8Array(256);
     for (let i = 0; i < 256; i++) {
@@ -393,7 +398,6 @@ export function applyLevelsWithOpenCV() {
             dstData[i + 3] = a;
         }
     }
-    
 
     // Update the canvas
     console.log('Updating the canvas...');
