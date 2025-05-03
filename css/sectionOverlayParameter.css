@@ -47,7 +47,7 @@
     min-width: 300px;
     max-width: 500px; 
     max-height: 100%; /* Avoid exceeding the viewport height */
-    overflow: hidden; /* Prevent overflow from its children */
+    overflow: hidden;
 
     /* max-height: 100%; */
     /* style */
@@ -130,7 +130,18 @@
     background-color: rgba(0, 255, 208, 0.8);
     border-radius: 50%;
     cursor: pointer;
-    touch-action: none; /* Prevent scrolling during touch */
+    touch-action: none;
+}
+
+.corner-marker::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    pointer-events: auto; /* Make this area interactable */
 }
 
 /* EDGES */

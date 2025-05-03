@@ -78,5 +78,17 @@
     background-position: center;
     transform: translate(-50%, 0);
     cursor: pointer;
-    user-select: none; /* Prevent selection during dragging */
+    user-select: none;
+    pointer-events: none; /* Allow only pseudo-element to receive interaction */
+}
+
+.slider-handle::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -10px;
+    width: 40px;
+    height: 30px;
+    background: transparent;
+    pointer-events: auto;
 }
