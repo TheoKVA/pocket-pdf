@@ -615,34 +615,55 @@ function makeMarkersDraggable(marker, cornerKey) {
         MAGNIFIER_OFFSET_MOBILE
     );
 
-    // MOUSE EVENTS
-    marker.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', () => {
-            magnifier.classList.add('hidden');
-            document.removeEventListener('mousemove', onMouseMove);
-            // console.log(tempEntrie.cornerPoints);
-        }, { once: true });
-    });
+    // // MOUSE EVENTS
+    // marker.addEventListener('mousedown', (e) => {
+    //     e.preventDefault();
+    //     document.addEventListener('mousemove', onMouseMove);
+    //     document.addEventListener('mouseup', () => {
+    //         magnifier.classList.add('hidden');
+    //         document.removeEventListener('mousemove', onMouseMove);
+    //         // console.log(tempEntrie.cornerPoints);
+    //     }, { once: true });
+    // });
 
-    // TOUCH EVENTS
-    marker.addEventListener('touchstart', (e) => {
+    // // TOUCH EVENTS
+    // marker.addEventListener('touchstart', (e) => {
+    //     e.preventDefault();
+    //     const touch = e.touches[0];
+    //     // Set initial position
+    //     moveMarkerAt(
+    //         e.touches[0].clientX, 
+    //         e.touches[0].clientY, 
+    //         MARKER_OFFSET_MOBILE, 
+    //         MAGNIFIER_OFFSET_MOBILE
+    //     );
+    //     document.addEventListener('touchmove', onTouchMove);
+    //     document.addEventListener('touchend', () => {
+    //         magnifier.classList.add('hidden');
+    //         document.removeEventListener('touchmove', onTouchMove);
+    //         // console.log(tempEntrie.cornerPoints);
+    //     }, { once: true });
+    // });
+
+    marker.addEventListener('pointerdown', (e) => {
         e.preventDefault();
-        const touch = e.touches[0];
-        // Set initial position
-        moveMarkerAt(
-            e.touches[0].clientX, 
-            e.touches[0].clientY, 
-            MARKER_OFFSET_MOBILE, 
-            MAGNIFIER_OFFSET_MOBILE
-        );
-        document.addEventListener('touchmove', onTouchMove);
-        document.addEventListener('touchend', () => {
+        marker.setPointerCapture(e.pointerId);
+
+        const offset = e.pointerType === 'touch' ? MARKER_OFFSET_MOBILE : MARKER_OFFSET_DESKTOP;
+        const magnifierOffset = e.pointerType === 'touch' ? MAGNIFIER_OFFSET_MOBILE : MAGNIFIER_OFFSET_DESKTOP;
+
+        const onPointerMove = (ev) => {
+            moveMarkerAt(ev.clientX, ev.clientY, offset, magnifierOffset);
+        };
+
+        const onPointerUp = () => {
             magnifier.classList.add('hidden');
-            document.removeEventListener('touchmove', onTouchMove);
-            // console.log(tempEntrie.cornerPoints);
-        }, { once: true });
+            marker.removeEventListener('pointermove', onPointerMove);
+            marker.removeEventListener('pointerup', onPointerUp);
+        };
+
+        marker.addEventListener('pointermove', onPointerMove);
+        marker.addEventListener('pointerup', onPointerUp);
     });
 }
 // Add all the events to the corners
