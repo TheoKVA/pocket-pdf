@@ -1,0 +1,78 @@
+/* =========== */
+/*    SWITCH   */
+/* =========== */
+/* 
+    Dans l'HTML on veut:
+
+    <label class="my-switch">
+        <input class='js-myswitch' type="checkbox">
+        <span class="slider round"></span>
+    </label>
+
+    const isChecked = document.querySelector('.js-myswitch').checked;
+*/
+
+:root {
+    --my-switch-width: 27px;
+    --my-switch-height: 15px;
+    --my-switch-padding: 2px;
+    --my-switch-color-on: #4573ff;
+    --my-switch-color-off: #afac9a;
+    --my-switch-color-toggle: white;
+}
+
+/* Hide default HTML checkbox */
+.my-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+/* The my-switch - the box around the slider */
+.my-switch {
+    position: relative;
+    display: inline-block;
+    width: var(--my-switch-width);
+    height: var(--my-switch-height);
+}
+/* The slider */
+.my-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: var(--my-switch-color-off);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.my-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: calc( var(--my-switch-height) - (2 * var(--my-switch-padding)) );
+    width: calc( var(--my-switch-height) - (2 * var(--my-switch-padding)) );
+    left: var(--my-switch-padding);
+    bottom: var(--my-switch-padding);
+    background-color: var(--my-switch-color-toggle);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background: linear-gradient(180deg, #208FF7 0%, #0080FF 100%);
+    /* background-color: var(--my-switch-color-on); */
+}
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--my-switch-color-on);
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX( calc( var(--my-switch-width) - var(--my-switch-height)) );
+    -ms-transform: translateX( calc( var(--my-switch-width) - var(--my-switch-height)) );
+    transform: translateX( calc( var(--my-switch-width) - var(--my-switch-height)) );
+}
+
+/* Rounded sliders */
+.my-switch .slider.round {
+    border-radius: calc( var(--my-switch-height)/2 );
+}
+.my-switch .slider.round:before {
+    border-radius: 50%;
+}

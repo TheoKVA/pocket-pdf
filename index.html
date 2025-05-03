@@ -143,9 +143,7 @@
                 <div>
                     <label for="export-format-select">Format</label>
                     <select id="export-format-select" class="css-input css-select">
-                        <option value="A3" data-width="297" data-height="420">A3</option>
                         <option value="A4" data-width="210" data-height="297" selected>A4</option>
-                        <option value="A5" data-width="148" data-height="210">A5</option>
                         <option value="Receipt" data-width="60" data-height="auto">Receipt</option>
                         <option value="Cards" data-width="130" data-height="auto">Cards</option>
                     </select>
@@ -229,7 +227,7 @@
         <div class="css-parameter-container">
 
             <!-- Top section -->
-            <div class="css-parameter-action" style="gap: 5px;">
+            <div class="css-parameter-action" style="gap: 5px; align-items: center;">
                 <!-- Rotate -->
                 <div id="parameter-rotate-left-button" class="my-button my-button-square-22px my-button-white">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -246,8 +244,19 @@
                     </svg>
                 </div>
 
+                <div style="flex-grow: 1;"></div>
+
+                <div class="flex-row" style="gap: 3px; align-items: center;">
+                    <p style="font-size: 16px;">🔍</p>
+                    <label class="my-switch">
+                        <input class="js-show-magnifier" type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                
+
                 <!-- Format Selection -->
-                <div style="display:none;">
+                <div style="display: none;">
                     <label for="format-select">Format:</label>
                     <select id="format-select">
                         <option value="A3">A3</option>
@@ -322,10 +331,8 @@
             </div>
 
             <!-- New color level adjustment -->
-            <div class="flex-row" style="gap: 13px; justify-content: center;">
-                <div>
-                    <p>Level adjustment</p>
-                </div>
+            <div class="flex-row" style="gap: 5px; justify-content: center;">
+                
                 <!-- Histogram & handles -->
                 <div id="histogram-container">
                     <!-- Canvas for the histogram -->

@@ -1,4 +1,15 @@
-
+/* =========== */
+/*    TOOGLE   */
+/* =========== */
+/*
+    Dans l'HTML on veut:
+    <div id="js-grayscale" class="my-toggle" style="--option-count: 3;">
+        <div class="my-toggle-option active" data-option="color">Color</div>
+        <div class="my-toggle-option" data-option="grayscale">Grayscale</div>
+        <div class="my-toggle-option" data-option="black-white">B&W</div>
+        <div class="my-toggle-background"></div>
+    </div>
+*/
 /* Container for the toggle */
 .my-toggle {
     --option-count: attr(data-option-count); /* Get the count from the data attribute */

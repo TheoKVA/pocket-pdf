@@ -16,7 +16,7 @@ const downloadNameInput = document.getElementById('pdf-download-name-input');
 const downloadPdfButton = document.getElementById('pdf-download-btn');
 
 // CONSTS
-const COMPRESSION_DOWNSCALE = 0.75; // Reduce by 25%
+const COMPRESSION_DOWNSCALE = 1;
 
 
 // - - - - - - - - - - - - - - -
@@ -56,14 +56,26 @@ export async function generatePDF() {
         // Wait for the image to load
         await new Promise((resolve) => (originalImg.onload = resolve)); 
 
-        // Extract the size values
-        const dpi = entry.imageParameters?.format?.dpi || projectSettings.format?.dpi;
-        const widthMM = entry.imageParameters?.format?.widthMM || projectSettings.format.widthMM;
-        const heightMM = entry.imageParameters?.format?.heightMM || projectSettings.format.heightMM;
+
+        console.log('projectSettings.format');
+        console.log(projectSettings.format);
+        // console.log('entry.imageParameters.format');
+        // console.log(entry.imageParameters.format);
+
+        // Extract the size values (from entry.imageParameters?.format) >> LATER
+        // const dpi = entry.imageParameters?.format?.dpi || projectSettings.format?.dpi;
+        // const widthMM = entry.imageParameters?.format?.widthMM || projectSettings.format.widthMM;
+        // const heightMM = entry.imageParameters?.format?.heightMM || projectSettings.format.heightMM;
+        
+        // Extract the size values, from the project
+        const dpi = projectSettings.format?.dpi;
+        const widthMM = projectSettings.format.widthMM;
+        const heightMM = projectSettings.format.heightMM;
         let widthPx, heightPx;
 
         // Check if height or width is set to 'auto'
         if (heightMM === 'auto' || widthMM === 'auto') {
+
             // Calculate dimensions based on corner points
             const { topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner } = entry.cornerPoints;
 
@@ -99,6 +111,8 @@ export async function generatePDF() {
             widthPx = Math.round((widthMM / 25.4) * dpi);
             heightPx = Math.round((heightMM / 25.4) * dpi);
         }
+
+        console.log('final image size is:', widthPx, '/', heightPx);
 
         // Use scanner to extract the paper with rotation taken into account
         const rotation = entry.imageScaled?.rotation || 0;
@@ -338,35 +352,6 @@ formatSelect.addEventListener('change', (event) => {
 //  HELPER
 // --------
 
-function applyLevelsToMat_old(src, dst, filter) {
-    console.log('Applying levels adjustment with filter:', filter);
-
-    const { black, white, middle, grayscale } = filter;
-
-    if (grayscale) {
-        // Convert src to grayscale in-place
-        const graySrc = new cv.Mat();
-        cv.cvtColor(src, graySrc, cv.COLOR_RGBA2GRAY, 0); // Convert to grayscale
-        cv.cvtColor(graySrc, src, cv.COLOR_GRAY2RGBA, 0); // Convert back to RGBA
-        graySrc.delete();
-    }
-
-    // Create the LUT
-    const lut = new Uint8Array(256);
-    for (let i = 0; i < 256; i++) {
-        let value = (i - black) / (white - black); // Scale to 0-1
-        value = Math.max(0, Math.min(1, value)); // Clamp between 0 and 1
-        value = Math.pow(value, middle); // Apply mid-tone adjustment
-        lut[i] = Math.round(value * 255); // Scale back to 0-255
-    }
-
-    // Apply the LUT to each pixel
-    const srcData = src.data;
-    const dstData = dst.data;
-    for (let i = 0; i < srcData.length; i++) {
-        dstData[i] = lut[srcData[i]];
-    }
-}
 function applyLevelsToMat(src, dst, filter) {
     console.log('Applying levels adjustment with filter:', filter);
 

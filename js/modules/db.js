@@ -78,9 +78,9 @@ export let projectSettings = {
         'name': 'A4',
         'widthMM': 210,
         'heightMM': 297,
-        'dpi': 200,
+        'dpi': 150,
     },
-    'compression' : 0.8
+    'compression' : 0.6
 }
 
 // - - - - - - - - - - - - - - -
