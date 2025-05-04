@@ -43,7 +43,7 @@ export function handleFileDrop(e) {
 
             // Trigger the change event manually
             fileInputDIV.dispatchEvent(new Event('change'));
-            break;
+            return;
         }
     }
 };
@@ -56,36 +56,35 @@ async function handleFileInput(e) {
     console.log('handleFileInput() is fired', files);
     loadingLog('Processing image...');
     
-    for (const file of files) {
-        showLoadingOverlay();
-        console.log('Processing file:', file.name);
+    const file = files[0];
+    if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = async (e) => {
+    showLoadingOverlay();
+    console.log('Processing file:', file.name);
 
-            let imgSrc = e.target.result;
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        let imgSrc = e.target.result;
 
-            // If the file is HEIC, convert it
-            if (file.type === 'image/heic' || file.type === 'image/heif') {
-                console.log('HEIC image conversion..');
-                loadingLog('Converting', file.name, 'to JPEG...');
-                try {
-                    const heicToJpg = await heic2any({ blob: file, toType: 'image/jpeg' });
-                    imgSrc = URL.createObjectURL(heicToJpg);
-                    console.log('HEIC image converted to JPEG:');
-                    loadingLog('HEIC image converted to JPEG.');
-                } catch (error) {
-                    console.error('Error converting HEIC to JPEG:', error);
-                    loadingLog('Error converting HEIC to JPEG.', error);
-                }
+        if (file.type === 'image/heic' || file.type === 'image/heif') {
+            console.log('HEIC image conversion..');
+            loadingLog('Converting', file.name, 'to JPEG...');
+            try {
+                const heicToJpg = await heic2any({ blob: file, toType: 'image/jpeg' });
+                imgSrc = URL.createObjectURL(heicToJpg);
+                console.log('HEIC image converted to JPEG:');
+                loadingLog('HEIC image converted to JPEG.');
+            } catch (error) {
+                console.error('Error converting HEIC to JPEG:', error);
+                loadingLog('Error converting HEIC to JPEG.', error);
             }
+        }
 
-            // Prepare the new image
-            newImage(imgSrc);
-        };
+        newImage(imgSrc);
+    };
 
-        reader.readAsDataURL(file);
-    }
+    reader.readAsDataURL(file);
+
 };
 
 // LOAD NEW IMAGE
