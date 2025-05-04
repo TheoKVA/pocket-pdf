@@ -32,6 +32,7 @@ downloadNameInput.addEventListener('click', () => {
     downloadNameInput.setSelectionRange(0, downloadNameInput.value.length - 4); // Exclude .pdf
 });
 
+// Avoid certain paterns on the input value editing
 downloadNameInput.addEventListener('input', () => {
     let name = downloadNameInput.value.trim();
   
@@ -46,6 +47,18 @@ downloadNameInput.addEventListener('input', () => {
 
     downloadNameInput.value = name + '.pdf';
     downloadNameInput.setSelectionRange(name.length, name.length);
+});
+
+// Reset position on dezoom
+downloadNameInput.addEventListener('blur', () => {
+    // Reset zoom (if user pinch-zoomed on mobile)
+    document.body.style.zoom = '1'; // Works in most desktop browsers
+
+    // Reset scroll position
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Optionally reset any transforms
+    document.body.style.transform = 'none';
 });
 
 
