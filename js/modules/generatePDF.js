@@ -395,13 +395,16 @@ formatSelect.addEventListener('change', (event) => {
 function applyLevelsToMat(src, dst, filter) {
     console.log('Applying levels adjustment with filter:', filter);
 
-    const {
+    let {
         black,
         white,
         middle,
         colorMode = 'color',
         blackAndWhite = 127
     } = filter;
+
+    // Invert the middle
+    middle = 1 - middle;
 
     // Create LUT for level adjustment
     const lut = new Uint8Array(256);
