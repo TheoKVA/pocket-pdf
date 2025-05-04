@@ -21,7 +21,7 @@ const MARKER_OFFSET_MOBILE = { x: -50, y: -50 }; // Finger offset
 const MAGNIFIER_SIZE = 100; // defined in the css
 const MAGNIFIER_ZOOM = 2;
 const MAGNIFIER_OFFSET_DESKTOP = { x: -MAGNIFIER_SIZE, y: -MAGNIFIER_SIZE }; 
-const MAGNIFIER_OFFSET_MOBILE = { x: -MAGNIFIER_SIZE/2, y: -MAGNIFIER_SIZE/2 };
+const MAGNIFIER_OFFSET_MOBILE = { x: -MAGNIFIER_SIZE/2 + MARKER_OFFSET_MOBILE.x, y: -MAGNIFIER_SIZE/2 + MARKER_OFFSET_MOBILE.y};
 
 
 // - - - - - - - - - - - - - - -
@@ -460,7 +460,18 @@ let markersIsSet = false;
 // and when the window is resized
 function positionMarkers() {
     // Get out if we dont have them already
-    if(!tempEntry.cornerPoints) return
+    if(!tempEntry.cornerPoints) {
+        const w = tempEntry.imageOriginal.size.width;
+        const h = tempEntry.imageOriginal.size.height;
+
+        tempEntry.cornerPoints = {
+            topLeftCorner:     { x: 0, y: 0 },
+            topRightCorner:    { x: w, y: 0 },
+            bottomRightCorner: { x: w, y: h },
+            bottomLeftCorner:  { x: 0, y: h },
+        };
+        console.warn('→ Default cornerPoints used due to failed detection.');
+    }
 
     console.log('> positionMarkers()');
     console.log(tempEntry.cornerPoints);
@@ -528,8 +539,8 @@ function updateEdges() {
 function makeMarkersDraggable(marker, cornerKey) {
 
     // MAGNIFIER DOM
-    const magnifier = document.getElementById('magnifier');
-    const magnifierCanvas = document.getElementById('magnifier-canvas');
+    const magnifier = document.getElementById('js-parameter-magnifier');
+    const magnifierCanvas = document.getElementById('js-parameter-magnifier-canvas');
     const magnifierCtx = magnifierCanvas.getContext('2d');
 
 
@@ -568,8 +579,10 @@ function makeMarkersDraggable(marker, cornerKey) {
         // Show magnifier above finger
         if(magnifierIsChecked.checked) {
             magnifier.classList.remove('hidden');
-            magnifier.style.left = `${b.left + clampedX + inputMagnifierOffset.x}px`;
-            magnifier.style.top = `${b.top + clampedY + inputMagnifierOffset.y}px`;
+            magnifier.style.left = `${inputX + inputMagnifierOffset.x}px`;
+            magnifier.style.top = `${inputY + inputMagnifierOffset.y}px`;
+            // magnifier.style.left = `${b.left + clampedX + inputMagnifierOffset.x}px`;
+            // magnifier.style.top = `${b.top + clampedY + inputMagnifierOffset.y}px`;
     
             // Zoom in around the drag point
             const sizeOffset = MAGNIFIER_SIZE / 2;
