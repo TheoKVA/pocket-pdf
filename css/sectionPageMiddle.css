@@ -1,7 +1,7 @@
 .css-middle-section {
     /* outside */
     flex-shrink: 0;
-    height: 250px;
+    height: calc(100dvh - 330px);
     margin: 15px;
     padding: 10px;
 

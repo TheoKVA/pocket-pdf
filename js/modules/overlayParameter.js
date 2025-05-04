@@ -459,6 +459,8 @@ let markersIsSet = false;
 // at each rotation
 // and when the window is resized
 function positionMarkers() {
+    console.log('> positionMarkers()');
+
     const w = tempEntry.imageOriginal.size.width;
     const h = tempEntry.imageOriginal.size.height;
 
@@ -492,8 +494,6 @@ function positionMarkers() {
         console.warn(`→ ${fixedCount} invalid cornerPoint(s) replaced with default values.`);
     }
 
-
-    console.log('> positionMarkers()');
     console.log(tempEntry.cornerPoints);
 
     // Update scaled dimensions and coordinates
