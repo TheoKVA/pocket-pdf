@@ -57,7 +57,7 @@ body {
 .css-page {
     /* position */
     position: relative;
-    min-height: calc(100vh);
+    min-height: calc(100dvh);
     transform-origin: 0 0;
     transform: scale(1);
     /* overflow-y: hidden; */

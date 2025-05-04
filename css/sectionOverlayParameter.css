@@ -52,7 +52,7 @@
     position: relative; 
     flex: 1 0 auto; /* Allow the container to grow/shrink based on content */
     flex-grow: 1;
-    max-height: calc(100vh - 250px);
+    max-height: calc(100dvh - 250px);
     min-height: 250px;
     
     display: flex;
