@@ -33,14 +33,6 @@
     --window-max-width: 500px;
 }
 
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    border: none;
-    box-sizing: border-box; /* To make sure padding doesn't increase the overall width */
-}
 
 /* OTHER */
 

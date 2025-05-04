@@ -221,13 +221,13 @@
     <div id="parameters-overlay" class="css-parameter-overlay hidden"> 
 
         <!-- BACKGROUND -->
-        <div class="css-parameters-background js-parameters-background"></div>
+        <div class="css-parameters-background js-parameters-background fill-parent"></div>
 
         <!-- PAGE -->
-        <div class="css-parameter-container">
+        <div class="css-parameter-container flex-column" style="gap: 5px;">
 
-            <!-- Top section -->
-            <div class="css-parameter-action" style="gap: 5px; align-items: center;">
+            <!-- TOP -->
+            <div class="flex-row" style="flex-shrink: 0; gap: 5px; align-items: center;">
                 <!-- Rotate -->
                 <div id="parameter-rotate-left-button" class="my-button my-button-square-22px my-button-white">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -269,7 +269,7 @@
                 </div>
             </div>
 
-            <!-- Image and Corner Adjustment -->
+            <!-- IMAGE -->
             <div id="parameter-image-container" class="css-parameter-image">
                 <!-- Image bg -->
                 <img id="parameter-image" src="https://via.placeholder.com/720x1080/eee?" alt="Loaded Image">
@@ -303,7 +303,7 @@
                 </style>
             </div>
 
-            <!-- TOOGLE COLOR STYLE -->
+            <!-- COLOR STYLE -->
             <div id="js-grayscale" class="my-toggle" style="--option-count: 3; margin-top:5px">
                 <div class="my-toggle-option active" data-option="color">Color</div>
                 <div class="my-toggle-option" data-option="grayscale">Grayscale</div>
@@ -311,7 +311,7 @@
                 <div class="my-toggle-background"></div>
             </div>
 
-            <!-- BOTTOM PARAMETTERS -->
+            <!-- PARAMETTERS -->
             <div class="flex-row" style="gap: 10px; max-width: 400px; margin: 0 auto;">
 
                 <!-- LEFT -->
@@ -358,6 +358,19 @@
                 </div>
             </div>
             
+            <!-- ACTIONS -->
+            <div class="flex-row" style="margin-top: auto; gap: 5px;">
+                <div id="parameter-delete-button" class="my-button my-button-27px my-button-white" style="width: 80px; color:#FF7F78;">
+                    <p>Delete</p>
+                </div>
+                <div style="flex:1"></div>
+                <div id="parameter-cancel-button" class="my-button my-button-27px my-button-white" style="width: 80px;">
+                    <p>Cancel</p>
+                </div>
+                <div id="parameter-save-button" class="my-button my-button-27px my-button-blue" style="width: 80px;">
+                    <p>Save</p>
+                </div>
+            </div>
 
             <!-- Color Levels Adjustment -->
             <div style="display:none">
@@ -379,19 +392,6 @@
             </div>
 
 
-            <!-- Action Section -->
-            <div class="flex-row" style="margin-top: auto; gap: 5px;">
-                <div id="parameter-delete-button" class="my-button my-button-27px my-button-white" style="width: 80px; color:#FF7F78;">
-                    <p>Delete</p>
-                </div>
-                <div style="flex:1"></div>
-                <div id="parameter-cancel-button" class="my-button my-button-27px my-button-white" style="width: 80px;">
-                    <p>Cancel</p>
-                </div>
-                <div id="parameter-save-button" class="my-button my-button-27px my-button-blue" style="width: 80px;">
-                    <p>Save</p>
-                </div>
-            </div>
         </div>
     </div>
 

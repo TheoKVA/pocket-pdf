@@ -18,12 +18,6 @@
 
 /* Static blurred background */
 .css-parameters-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
     /* style */
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(25px);
@@ -35,44 +29,27 @@
 /* INSIDE */
 /* Scrollable Page Container */
 .css-parameter-container {
+
     /* position */
-    position: relative;
-    /* top: 0; */
-    /* left: 0; */
-    /* width: 100%; */
-    /* max-width: 350px; */
-    /* height: auto; */
-
-    width: 95%; 
+    width: 100%;
     min-width: 300px;
-    max-width: 500px; 
-    max-height: 100%; /* Avoid exceeding the viewport height */
+    max-width: 400px; 
+    max-height: 100dvh; /* Avoid exceeding the viewport height */
     overflow: hidden;
+    overflow-y: auto;
 
-    /* max-height: 100%; */
     /* style */
-    background-color: white;
+    margin: 10px;
     padding: 10px;
-    margin: 10px auto;
     border-radius: 12px;
+    background-color: white;
 
     /* alignemnt */
-    display: flex;
-    flex-direction: column;
     flex: 0 1 auto; /* Adjust height based on content */
-    overflow-y: auto;
-    gap: 5px;
-    
-    /* Center the adjustment container */
-    /* text-align: center; */
-    /* margin: auto;  */
 }
 
-.css-parameter-action {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    flex-shrink: 0;
+.css-parameter-container > * {
+    /* border: solid green 1px; */
 }
 
 .css-parameter-image {

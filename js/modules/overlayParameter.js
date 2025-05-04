@@ -12,7 +12,7 @@ import { projectSettings } from './db.js';
 // - - - - - - - - - - - - - - -
 
 // VARIABLES
-const IS_TEST = false; // To show by default the UI, for testing
+const IS_TEST = true; // To show by default the UI, for testing
 
 const MARKER_SIZE = 20; // defined in the css
 const MARKER_OFFSET_DESKTOP = { x: 0, y: 0 }; 
