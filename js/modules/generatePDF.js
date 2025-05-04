@@ -22,6 +22,33 @@ const COMPRESSION_DOWNSCALE = 1;
 // - - - - - - - - - - - - - - -
 
 
+// ==========
+// FILE INPUT
+// ==========
+downloadNameInput.addEventListener('focus', () => {
+    downloadNameInput.setSelectionRange(0, downloadNameInput.value.length - 4); // Exclude .pdf
+});
+downloadNameInput.addEventListener('click', () => {
+    downloadNameInput.setSelectionRange(0, downloadNameInput.value.length - 4); // Exclude .pdf
+});
+
+downloadNameInput.addEventListener('input', () => {
+    let name = downloadNameInput.value.trim();
+  
+    // Remove any extension the user tries to add
+    name = name.replace(/\.[^/.]+$/, '');
+  
+    // Strip stray dots if you want to avoid "my.scan"
+    name = name.replace(/\./g, '');
+
+    // Remove spaces
+    name = name.replace(/ /g, '-');
+
+    downloadNameInput.value = name + '.pdf';
+    downloadNameInput.setSelectionRange(name.length, name.length);
+});
+
+
 let exportBlob = null;
 let exportBlobUrl = null;
 

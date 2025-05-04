@@ -29,7 +29,6 @@
 /* INSIDE */
 /* Scrollable Page Container */
 .css-parameter-container {
-
     /* position */
     width: 100%;
     min-width: 300px;
@@ -48,9 +47,6 @@
     flex: 0 1 auto; /* Adjust height based on content */
 }
 
-.css-parameter-container > * {
-    /* border: solid green 1px; */
-}
 
 .css-parameter-image {
     position: relative; 

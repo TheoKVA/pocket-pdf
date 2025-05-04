@@ -3,6 +3,13 @@
 /* CUSTOM CSS FRAMEWORK */
 /* ==================== */
 
+/*
+    Viewport height
+    '100svh' refers to 100% of the height of the smallest possible viewport.
+    '100lvh' refers to 100% of the height of the largest possible viewport.
+    '100dvh' refers to 100% of the dynamic viewport height — meaning the value will change as the user scrolls.
+*/
+
 *,
 *::before,
 *::after {
