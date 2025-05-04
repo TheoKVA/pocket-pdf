@@ -459,19 +459,39 @@ let markersIsSet = false;
 // at each rotation
 // and when the window is resized
 function positionMarkers() {
-    // Get out if we dont have them already
-    if(!tempEntry.cornerPoints) {
-        const w = tempEntry.imageOriginal.size.width;
-        const h = tempEntry.imageOriginal.size.height;
+    const w = tempEntry.imageOriginal.size.width;
+    const h = tempEntry.imageOriginal.size.height;
 
-        tempEntry.cornerPoints = {
-            topLeftCorner:     { x: 0, y: 0 },
-            topRightCorner:    { x: w, y: 0 },
-            bottomRightCorner: { x: w, y: h },
-            bottomLeftCorner:  { x: 0, y: h },
-        };
-        console.warn('→ Default cornerPoints used due to failed detection.');
+    const defaultCorners = {
+        topLeftCorner:     { x: 0, y: 0 },
+        topRightCorner:    { x: w, y: 0 },
+        bottomRightCorner: { x: w, y: h },
+        bottomLeftCorner:  { x: 0, y: h },
+    };
+
+    // Ensure cornerPoints exists
+    if (!tempEntry.cornerPoints) {
+        tempEntry.cornerPoints = {};
     }
+
+    let fixedCount = 0;
+
+    // Check cornerpoints validity
+    for (const key of Object.keys(defaultCorners)) {
+        const pt = tempEntry.cornerPoints[key];
+        if (
+            !pt || typeof pt.x !== 'number' || isNaN(pt.x) ||
+            typeof pt.y !== 'number' || isNaN(pt.y)
+        ) {
+            tempEntry.cornerPoints[key] = { ...defaultCorners[key] };
+            fixedCount++;
+        }
+    }
+
+    if (fixedCount > 0) {
+        console.warn(`→ ${fixedCount} invalid cornerPoint(s) replaced with default values.`);
+    }
+
 
     console.log('> positionMarkers()');
     console.log(tempEntry.cornerPoints);
