@@ -352,7 +352,7 @@ export function applyLevelsWithOpenCV() {
     // Retrieve the filter values
     const black = tempEntry.imageParameters.filter.black;
     const white = tempEntry.imageParameters.filter.white;
-    const middle = tempEntry.imageParameters.filter.middle;
+    const middle = 1 - tempEntry.imageParameters.filter.middle;
     const colorMode = tempEntry.imageParameters.filter.colorMode;
 
     // Initialize workingDst with the same size and type as workingSrc
@@ -461,8 +461,10 @@ let markersIsSet = false;
 function positionMarkers() {
     console.log('> positionMarkers()');
 
-    const w = tempEntry.imageOriginal.size.width;
-    const h = tempEntry.imageOriginal.size.height;
+    const w = tempEntry.imageOriginal?.size?.width;
+    const h = tempEntry.imageOriginal?.size?.height;
+
+    if(!w || !h) return
 
     const defaultCorners = {
         topLeftCorner:     { x: 0, y: 0 },
