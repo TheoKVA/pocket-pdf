@@ -172,9 +172,6 @@ function initializeSliders() {
         slider.addEventListener("touchstart", startDrag, { passive: false }); // Passive false to allow preventDefault
         document.addEventListener("touchmove", drag, { passive: false }); // Passive false to allow preventDefault
         document.addEventListener("touchend", stopDrag);
-
-        // Update slider position when input value changes
-        // input.addEventListener("input", syncSliderToInput);
     });
 }
 initializeSliders();
