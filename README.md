@@ -7,18 +7,25 @@
 
 > **A 100% private, browser-based document scanner**
 
+![Screenshot of Pocket PDF](assets/PPDF-1.jpg)
+
 Turn your phone into a document scanner — no installs, no sign-ups, no tracking. Pocket PDF lets you scan, crop, enhance, and generate multi-page PDFs directly from your browser. Your data never leaves your device. No ads, no fees, no hassle.
 
-![Screenshot of Pocket PDF](assets/screenshot.png)
 
 ## Features
 
-- 📸 **Image input**: Upload from camera or file (with drag & drop support)
+![Features-1](assets/GIF-PPDF-3.gif)
+
+- 📸 **Image input**: Upload from camera or file (with drag & drop support on computer)
 - 🧠 **Auto corner detection**: Automatically finds paper edges using OpenCV.js
 - ✂ **Manual adjustment**: Drag corner handles if auto-detection isn't perfect
 - 🎛 **Image enhancements**: Grayscale, black & white, or full-color with real-time adjustements
-- 📏 **Format control**: Output to A3, A4, A5, etc.
+
+![Features-2](assets/GIF-PPDF-2.gif)
+
+
 - 🖼 **Multi-page support**: Reorder pages visually, delete or re-edit on click
+- 📏 **Format control**: Output to A3, A4, A5, etc.
 - 📄 **PDF export**: Choose DPI and compression for best balance of size and quality
 - 💾 **100% offline**: All processing happens in the browser — no uploads, no analytics
 
@@ -30,7 +37,10 @@ Turn your phone into a document scanner — no installs, no sign-ups, no trackin
 
 ## Try it online
 
+![Screenshot of Pocket PDF](assets/PPDF-4.jpg)
+
 > [👉 Launch Pocket PDF](https://TheoKVA.github.io/pocket-pdf/)
+
 
 ## Local development
 
